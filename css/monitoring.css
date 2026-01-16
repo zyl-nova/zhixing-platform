@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  li {
+    list-style: none;
+  }
+  @font-face {
+    font-family: electronicFont;
+    src: url(../font/DS-DIGIT.TTF);
+  }
+  /*修改过*/
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 防止滚动条 */
+  }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    /*  背景图定位 / 背景图尺寸  cover 完全铺满容器  contain 完整显示在容器内 */
+    background: url(../images/bkg2.png) no-repeat #000;
+    background-size: cover;
+    /* 行高是字体1.15倍 */
+    line-height: 1.15;
+  }
+  header {
+    position: relative;
+    height: 10vh; /* 使用视口高度的百分比 */
+    height: 1.25rem;
+    background: url(../images/head_bg.png) no-repeat top center;
+    background-size: 100% 100%;
+  }
+  header h1 {
+    position: absolute;
+    font-size: 0.475rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+    left: 50%; /* 如果需要水平居中 */
+    transform: translateX(-50%); /* 水平居中 */
+    top:0;
+  }
+  header .showTime {
+    position: absolute;
+    top: 0;
+    right: 0.375rem;
+    line-height: 0.9375rem;
+    font-size: 0.25rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  header .nav {
+    display: flex;
+    align-items: center;
+    margin-left: 0.2rem;
+    padding-top: 0.3rem;
+  }
+  
+  header .nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.2rem;
+    margin-right: 0.18rem;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.3s ease;
+    padding: 0.2rem 0.2rem;
+    font-weight: bold;
+  }
+  
+  .nav a:hover {
+    box-shadow: 0 0 10px 2px rgba(173, 216, 230, 0.8); /* 淡蓝色光晕 */
+  }
+  
+  /* 选中状态光晕 */
+  .nav a.active {
+    box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.8); /* 淡蓝色光晕 */
+  }
+  
+  header .nav a:last-child {
+    margin-right: 0;
+  }
+  
+  header .nav a img {
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-right: 0.1rem;
+    vertical-align: middle;
+  }
+  
+  /* 下拉菜单样式 */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color:rgba(255, 255, 255, 0.04); /* 半透明背景 */
+    border-radius: 0.1rem;
+    overflow: hidden;
+    min-width: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 999;
+    background-color: #ffffff !important;
+    opacity: 1 !important; /* 确保没有透明度 */
+    backdrop-filter: none !important; /* 取消模糊背景 */
+    filter: none !important; /* 取消滤镜 */
+  }
+  
+/* 鼠标悬停时显示下拉菜单 */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+  /* 下拉菜单链接样式 */
+  .dropdown-content a {
+    color: #000000 !important;
+    font-size: 0.18rem;
+    text-align: center; /* 水平居中 */
+    padding: 0.2rem;
+    text-decoration: none;
+    display: block;
+    box-shadow: none !important;  /* 确保没有光晕 */
+    font-weight: normal !important;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: rgb(161, 226, 250); /* 浅蓝色背景 */
+    width: 100%; /* 确保铺满父容器 */
+  }
+  
+  /* 悬停显示下拉菜单 */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+
+  
+
+  .mainbox {
+    width:100%;
+    padding: 0;
+    display: flex;
+  }
+
+  .mainbox .column {
+    flex: 2;
+    /*background: rgba(255, 255, 255, 0.04) url(../images/line\(1\).png);*/
+  }
+  .mainbox .column:nth-child(2) {
+    flex: 5.5;
+    margin: 0 0.125rem 0.185rem;
+    overflow: hidden;
+  }
+
+
+
+    /* 左侧菜单栏 */
+  #sidebar {
+      /*width: 250px;*/
+      /*padding: 20px;*/
+      height:90vh;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.04) url(../images/line\(1\).png);
+  }
+
+
+  #road-list-section h3 {
+    margin-bottom: 10px; /* 调整标题底部外边距 */
+    margin-top:0;
+    color:#fff;
+    font-size:30px;
+  }
+
+
+  
+  #road-list-section {
+    
+
+    border-radius: 5px; /* 圆角：5px */
+    padding: 20px; /* 内边距：20px */
+    /*background-color: #f9f9f9; /* 背景颜色 */
+    margin: 10px 0; /* 外边距：上下 10px，左右 0 */
+  }
+
+
+
+
+  #search-box {
+      width: 100%;
+      padding: 10px;
+      margin-top:20px;
+      margin-bottom: 80px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size:0.2rem;
+      height:60px;
+  }
+
+  .road-item {
+    display: block; /* 块级元素 */
+    padding: 15px 15px; /* 内边距：上下 10px，左右 15px */
+    margin: 0.25rem auto; /* 外边距：上下 5px，左右自动（水平居中） */
+    /*background-color: #31394c; 背景颜色 */
+    border: 5px solid #ddd; /* 边框：1px 实线，颜色 #ddd */
+    border-radius: 5px; /* 圆角：5px */
+    cursor: pointer; /* 鼠标指针样式：手型 */
+    transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+    font-size: 0.3rem; /* 字体大小 */
+    color:#ffffff;
+    text-align: center; /* 文字水平居中 */
+    width: 90%; /* 宽度为父容器的 80% */
+  }
+  
+  .road-item:hover {
+    background-color: #ddd; /* 鼠标悬停时背景颜色变为 #ddd */
+  }
+
+  #video-grid video {
+    padding-top:30px;
+    padding-bottom:70px;
+    max-width: 100%;
+    height: auto;
+    background: #330;
+}
+
+#video-container{
+font-size:30px;
+}
+
+
+
+  /* 监控画面相关样式 */
+  #video-header {
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+  }
+
+
+
+  #layout-buttons {
+      padding: 10px;
+      background-color: #444;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+  }
+
+  #layout-buttons button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size:20px;
+  }
+
+  #layout-buttons button:hover {
+      background-color: #777;
+  }
+
+
+  /* 右侧报警区域 */
+  #alarm-content {
+    /*width: 330px;*/
+    height: calc(100vh - 80px); /* 统一高度 */
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* 允许内部滚动 */
+    border-left: 1px solid #ddd; /* 添加左侧边框 */
+    background: rgba(255, 255, 255, 0.04) url(../images/line\(1\).png);
+    color:#fff;
+  }
+
+  
+  
+
+
+
+  /* 隐藏滚动条 */
+  #alarm-content::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条 */
+  }
+
+  .alarm-section {
+    margin-bottom: 20px;
+  }
+
+  #alarm-content .alarm-section h3 {
+    font-size: 30px !important; /* 使用px单位确保大小 */
+  }
+
+
+
+  /* 滚动消息框样式 - 改进版 */
+.message_scroll_box {
+  height: 1000px; /* 设置固定高度 */
+  overflow: hidden; /* 隐藏溢出内容 */
+  position: relative;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.message_scroll_container {
+  position: relative;
+  transition: transform 0.6s ease-out;
+}
+
+/* 每条消息样式 - 保持原有外观 */
+.message_scroll {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.scroll_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.scroll_title {
+  font-weight: bold;
+  color: #333;
+  font-size: 0.25rem;
+}
+
+.scroll_level {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.2rem;
+  color: white;
+  margin-left: 10px;
+}
+
+.scroll_level01 { background: #f5222d; } /* 一级 - 红色 */
+.scroll_level02 { background: #fa8c16; } /* 二级 - 橙色 */
+.scroll_level03 { background: #faad14; } /* 三级 - 黄色 */
+
+.scroll_timer {
+  color: #999;
+  font-size: 0.2rem;
+}
+
+.msg_cage {
+  margin-top: 8px;
+  font-size: 0.22rem;
+  color: #666;
+}
+
+.localize_title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.localize_title label {
+  color: #888;
+  margin-right: 5px;
+}
+
+.localize_msg {
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+/* 隐藏滚动条（保留原有功能） */
+.message_scroll_box::-webkit-scrollbar {
+  display: none;
+}

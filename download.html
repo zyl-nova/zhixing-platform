@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智行车辆检测大数据平台</title>
+    <link rel="stylesheet" href="css/download.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.24.13/dist/antd.min.css"/>
+  </head>
+
+  <body>
+    <header>
+      <div class="nav">
+        <a href="index.html"><img src="images/nav_1.png" alt="数据概览"> 数据概览</a>
+        
+        <div class="dropdown">
+          <a href="monitoring.html"><img src="images/nav_5.png" alt="高危地段监控"> 高危地段监控</a>
+          <div class="dropdown-content">
+            <a href="monitoring.html">实时监控检测</a>
+            <a href="image.html">图片检测</a>
+            <a href="video.html">视频检测</a>
+          </div>
+        </div>
+        
+        <a href="download.html" class="active"><img src="images/nav_3.png" alt="报表下载"> 报表下载</a>
+      </div>
+
+      <h1>智行车辆检测大数据平台</h1>
+      <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+      <script>
+        var t = null;
+        t = setTimeout(time, 1000); // 开始运行
+        function time() {
+          clearTimeout(t); // 清除定时器
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours(); // 获取时
+          var m = dt.getMinutes(); // 获取分
+          var s = dt.getSeconds(); // 获取秒
+          document.querySelector(".showTime").innerHTML =
+            "当前时间：" +
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+          t = setTimeout(time, 1000); // 设定定时器，循环运行
+        }
+      </script>
+    </header>
+
+    <!-- 报表下载部分 -->
+    <main>
+      <div id="report-container">
+        <h2>车辆检测结果报表下载</h2>
+        <p>下载车辆检测结果的详细报表，支持 CSV、Excel 和 PDF 格式。</p>
+
+        <!-- 筛选和搜索功能 -->
+        <div class="filters">
+          <label for="date-range">时间范围：</label>
+          <input type="date" id="start-date">
+          <input type="date" id="end-date">
+
+          <label for="report-type">报表类型：</label>
+          <select id="report-type">
+            <option value="all">全部</option>
+            <option value="车型检测结果报表">车型检测结果报表</option>
+            <option value="实时监控数据报表">实时监控数据报表</option>
+            <option value="历史数据分析报表">历史数据分析报表</option>
+            <option value="违规检测报表">违规检测报表</option>
+          </select>
+
+          <label for="vehicle-type">车辆类型：</label>
+          <select id="vehicle-type">
+            <option value="all">全部</option>
+            <option value="小型车">小型车</option>
+            <option value="中型车">中型车</option>
+            <option value="大型车">大型车</option>
+          </select>
+
+          <label for="violation-type">违规类型：</label>
+          <select id="violation-type">
+            <option value="all">全部</option>
+            <option value="超速">超速</option>
+            <option value="逆行">逆行</option>
+            <option value="未系安全带">未系安全带</option>
+          </select>
+
+          <input type="text" id="search-box" placeholder="搜索报表名称">
+          <button id="search-btn">搜索</button>
+        </div>
+
+        <!-- 报表列表 -->
+        <table id="report-table">
+          <thead>
+            <tr>
+              <th>报表名称</th>
+              <th>生成时间</th>
+              <th>报表类型</th>
+              <th>车辆类型</th>
+              <th>违规类型</th>
+              <th>文件格式</th>
+              <th>文件大小</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 数据将由 JS 填充 -->
+          </tbody>
+        </table>
+
+        <!-- 分页功能 -->
+        <div class="pagination">
+          <button id="prev-page">上一页</button>
+          <span id="current-page">1</span>
+          <button id="next-page">下一页</button>
+        </div>
+
+
+        <!-- 帮助与支持 -->
+        <div class="help-support">
+          <p>帮助与支持：如有问题，请联系 <a href="mailto:support@example.com">support@example.com</a></p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // 模拟数据（两页数据，每页 10 条）
+      const reports = [
+        // 第一页数据
+        { name: "2025年1月车型检测报告", time: "2025-01-15", reportType: "车型检测结果报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.4MB" },
+  { name: "2025年1月超速车辆报告", time: "2025-01-18", reportType: "实时监控数据报表", vehicleType: "中型车", violationType: "超速", format: "Excel", size: "2.7MB" },
+  { name: "2025年1月逆行车辆报告", time: "2025-01-22", reportType: "历史数据分析报表", vehicleType: "大型车", violationType: "逆行", format: "PDF", size: "2.1MB" },
+  { name: "2025年1月未系安全带报告", time: "2025-01-05", reportType: "违规检测报表", vehicleType: "小型车", violationType: "未系安全带", format: "CSV", size: "1.3MB" },
+  { name: "2025年1月大型车检测报告", time: "2025-01-28", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "超速", format: "Excel", size: "3.2MB" },
+  { name: "2025年1月小型车检测报告", time: "2025-01-10", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.1MB" },
+  { name: "2025年1月中型车检测报告", time: "2025-01-19", reportType: "历史数据分析报表", vehicleType: "中型车", violationType: "逆行", format: "Excel", size: "2.4MB" },
+  { name: "2025年1月超速车辆报告（补充）", time: "2025-01-25", reportType: "违规检测报表", vehicleType: "中型车", violationType: "超速", format: "PDF", size: "1.7MB" },
+  { name: "2025年1月逆行车辆报告（补充）", time: "2025-01-08", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "逆行", format: "CSV", size: "1.5MB" },
+  { name: "2025年1月未系安全带报告（补充）", time: "2025-01-30", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "未系安全带", format: "Excel", size: "3.0MB" },
+
+  // 2月数据
+  { name: "2025年2月车型检测报告", time: "2025-02-12", reportType: "车型检测结果报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.5MB" },
+  { name: "2025年2月超速车辆报告", time: "2025-02-17", reportType: "实时监控数据报表", vehicleType: "中型车", violationType: "超速", format: "Excel", size: "2.8MB" },
+  { name: "2025年2月逆行车辆报告", time: "2025-02-21", reportType: "历史数据分析报表", vehicleType: "大型车", violationType: "逆行", format: "PDF", size: "2.2MB" },
+  { name: "2025年2月未系安全带报告", time: "2025-02-03", reportType: "违规检测报表", vehicleType: "小型车", violationType: "未系安全带", format: "CSV", size: "1.4MB" },
+  { name: "2025年2月大型车检测报告", time: "2025-02-26", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "超速", format: "Excel", size: "3.3MB" },
+  { name: "2025年2月小型车检测报告", time: "2025-02-09", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.2MB" },
+  { name: "2025年2月中型车检测报告", time: "2025-02-18", reportType: "历史数据分析报表", vehicleType: "中型车", violationType: "逆行", format: "Excel", size: "2.5MB" },
+  { name: "2025年2月超速车辆报告（补充）", time: "2025-02-24", reportType: "违规检测报表", vehicleType: "中型车", violationType: "超速", format: "PDF", size: "1.8MB" },
+  { name: "2025年2月逆行车辆报告（补充）", time: "2025-02-07", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "逆行", format: "CSV", size: "1.6MB" },
+  { name: "2025年2月未系安全带报告（补充）", time: "2025-02-28", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "未系安全带", format: "Excel", size: "3.1MB" },
+
+  // 3月数据
+  { name: "2025年3月车型检测报告", time: "2025-03-10", reportType: "车型检测结果报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.6MB" },
+  { name: "2025年3月超速车辆报告", time: "2025-03-15", reportType: "实时监控数据报表", vehicleType: "中型车", violationType: "超速", format: "Excel", size: "2.9MB" },
+  { name: "2025年3月逆行车辆报告", time: "2025-03-20", reportType: "历史数据分析报表", vehicleType: "大型车", violationType: "逆行", format: "PDF", size: "2.3MB" },
+  { name: "2025年3月未系安全带报告", time: "2025-03-05", reportType: "违规检测报表", vehicleType: "小型车", violationType: "未系安全带", format: "CSV", size: "1.5MB" },
+  { name: "2025年3月大型车检测报告", time: "2025-03-25", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "超速", format: "Excel", size: "3.4MB" },
+  { name: "2025年3月小型车检测报告", time: "2025-03-08", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "超速", format: "CSV", size: "1.3MB" },
+  { name: "2025年3月中型车检测报告", time: "2025-03-17", reportType: "历史数据分析报表", vehicleType: "中型车", violationType: "逆行", format: "Excel", size: "2.6MB" },
+  { name: "2025年3月超速车辆报告（补充）", time: "2025-03-22", reportType: "违规检测报表", vehicleType: "中型车", violationType: "超速", format: "PDF", size: "1.9MB" },
+  { name: "2025年3月逆行车辆报告（补充）", time: "2025-03-09", reportType: "车型检测结果报表", vehicleType: "大型车", violationType: "逆行", format: "CSV", size: "1.7MB" },
+  { name: "2025年3月未系安全带报告（补充）", time: "2025-03-30", reportType: "实时监控数据报表", vehicleType: "小型车", violationType: "未系安全带", format: "Excel", size: "3.2MB" }
+      ];
+
+      let currentPage = 1;
+      const rowsPerPage = 10; // 每页显示 10 条信息
+
+      // 渲染表格数据
+      function renderTable(page, filteredData) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredData.slice(start, end);
+
+        const tbody = document.querySelector("#report-table tbody");
+        tbody.innerHTML = "";
+
+        pageData.forEach((report) => {
+          const row = `
+            <tr>
+              <td>${report.name}</td>
+              <td>${report.time}</td>
+              <td>${report.reportType}</td>
+              <td>${report.vehicleType}</td>
+              <td>${report.violationType}</td>
+              <td>${report.format}</td>
+              <td>${report.size}</td>
+              <td><button>下载</button></td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
+
+        // 更新分页显示
+        document.getElementById("current-page").textContent = page;
+      }
+
+      // 筛选数据
+      function filterData() {
+        const startDate = document.getElementById("start-date").value;
+        const endDate = document.getElementById("end-date").value;
+        const reportType = document.getElementById("report-type").value;
+        const vehicleType = document.getElementById("vehicle-type").value;
+        const violationType = document.getElementById("violation-type").value;
+        const searchText = document.getElementById("search-box").value.toLowerCase();
+
+        let filteredData = reports.filter((report) => {
+          const isDateInRange =
+            (!startDate || report.time >= startDate) &&
+            (!endDate || report.time <= endDate);
+          const isReportTypeMatch =
+            reportType === "all" || report.reportType === reportType;
+          const isVehicleTypeMatch =
+            vehicleType === "all" || report.vehicleType === vehicleType;
+          const isViolationTypeMatch =
+            violationType === "all" || report.violationType === violationType;
+          const isSearchMatch =
+            !searchText || report.name.toLowerCase().includes(searchText);
+
+          return isDateInRange && isReportTypeMatch && isVehicleTypeMatch && isViolationTypeMatch && isSearchMatch;
+        });
+
+        return filteredData;
+      }
+
+      // 更新表格
+      function updateTable() {
+        const filteredData = filterData();
+        currentPage = 1; // 重置到第一页
+        renderTable(currentPage, filteredData);
+      }
+
+      // 绑定事件
+      document.getElementById("search-btn").addEventListener("click", updateTable);
+      document.getElementById("prev-page").addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderTable(currentPage, filterData());
+        }
+      });
+      document.getElementById("next-page").addEventListener("click", () => {
+        const filteredData = filterData();
+        if (currentPage < Math.ceil(filteredData.length / rowsPerPage)) {
+          currentPage++;
+          renderTable(currentPage, filteredData);
+        }
+      });
+
+      // 初始化渲染
+      updateTable();
+    </script>
+    <script src="js/flexible.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/myMap.js"></script>
+  </body>
+</html>

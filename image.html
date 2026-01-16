@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智行</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/jquery.js"></script>
+  <script src="js/video.js"></script>
+  <style>
+    /* 深色主题专属样式，完全兼容全局CSS */
+    #report-container {
+      background-color: rgba(0, 20, 40, 0.8) !important;
+      border: 1px solid rgba(30, 144, 255, 0.3) !important;
+      color: #e6f7ff !important;
+      padding: 0.4rem !important;
+      height: calc(100% - 0.8rem);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #report-container h2 {
+      color: #1890ff !important;
+      font-size: 0.3rem !important;
+      margin-bottom: 0.15rem !important;
+    }
+
+    #report-container p {
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 0.2rem !important;
+      margin-bottom: 0.3rem !important;
+    }
+
+    .filters {
+      margin-bottom: 0.3rem !important;
+      padding: 0.2rem !important;
+      background-color: rgba(0, 30, 60, 0.6) !important;
+      border: 1px solid rgba(30, 144, 255, 0.4) !important;
+      border-radius: 0.08rem !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .filters .upload-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+
+    .filters label {
+      color: #e6f7ff !important;
+      font-size: 0.22rem !important;
+      margin-right: 0.15rem !important;
+    }
+
+    .filters input,
+    .filters select {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(30, 144, 255, 0.4) !important;
+      color: #e6f7ff !important;
+      padding: 0.08rem 0.15rem !important;
+      border-radius: 0.04rem !important;
+      font-size: 0.2rem !important;
+    }
+
+    .filters button {
+      background-color: #1890ff !important;
+      color: #fff !important;
+      border: none !important;
+      padding: 0.08rem 0.25rem !important;
+      border-radius: 0.04rem !important;
+      font-size: 0.2rem !important;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-left: 0.15rem;
+    }
+
+    .filters button:hover {
+      background-color: #40a9ff !important;
+      box-shadow: 0 0 0.1rem rgba(255, 255, 255, 0.5) !important;
+    }
+
+    #previewImage {
+      max-width: 90%;
+      max-height: 4rem;
+      display: none;
+      margin-top: 0.2rem;
+      border: 1px solid rgba(30, 144, 255, 0.4) !important;
+      border-radius: 0.08rem !important;
+    }
+
+    #report-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      margin-bottom: 0.3rem !important;
+      background-color: rgba(0, 30, 60, 0.6) !important;
+      border: 1px solid rgba(30, 144, 255, 0.4) !important;
+      border-radius: 0.08rem !important;
+      overflow: hidden;
+    }
+
+    #report-table th,
+    #report-table td {
+      padding: 0.15rem !important;
+      text-align: center !important;
+      border: 1px solid rgba(30, 144, 255, 0.3) !important;
+      font-size: 0.2rem !important;
+    }
+
+    #report-table th {
+      background-color: rgba(24, 144, 255, 0.2) !important;
+      color: #1890ff !important;
+      font-weight: bold !important;
+    }
+
+    #report-table td {
+      color: #e6f7ff !important;
+    }
+
+    .pagination {
+      text-align: center !important;
+      margin-top: auto !important;
+    }
+
+    .pagination button {
+      background-color: #1890ff !important;
+      color: #fff !important;
+      border: none !important;
+      padding: 0.08rem 0.2rem !important;
+      border-radius: 0.04rem !important;
+      font-size: 0.2rem !important;
+      margin: 0 0.05rem !important;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .pagination button:hover {
+      background-color: #40a9ff !important;
+      box-shadow: 0 0 0.1rem rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .help-support {
+      text-align: center !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 0.18rem !important;
+      margin-top: 0.1rem !important;
+    }
+
+    /* 关键修复：Toast提示样式（确保能显示） */
+    #statusToast {
+      position: fixed !important;
+      top: 20% !important; /* 从顶部20%位置显示，避免被遮挡 */
+      left: 50% !important;
+      transform: translateX(-50%) !important; /* 只水平居中，避免垂直位移问题 */
+      background-color: rgba(0, 0, 0, 0.9) !important;
+      color: #ffffff !important;
+      padding: 0.2rem 0.4rem !important;
+      border-radius: 0.08rem !important;
+      font-size: 0.24rem !important; /* 放大字体，更醒目 */
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 99999 !important; /* 提升层级，确保不被任何元素遮挡 */
+      border: 2px solid #1890ff !important; /* 增加蓝色边框，更显眼 */
+      min-width: 8rem !important; /* 最小宽度，避免文字挤在一起 */
+      text-align: center !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <a href="index.html"><img src="images/nav_1.png" alt="数据概览"> 数据概览</a>
+      
+      <div class="dropdown">
+        <a href="monitoring.html"><img src="images/nav_5.png" alt="高危地段监控"> 高危地段监控</a>
+        <div class="dropdown-content">
+          <a href="monitoring.html">实时监控检测</a>
+          <a href="image.html">图片检测</a>
+          <a href="video.html">视频检测</a>
+        </div>
+      </div>
+      
+      <a href="download.html"><img src="images/nav_3.png" alt="报表下载"> 报表下载</a>
+    </div>
+
+    <script src="js/nav.js"></script>
+
+    <h1>智行车辆检测大数据平台</h1>
+    <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+    <script>
+      var t = null;
+      t = setTimeout(time, 1000);
+      function time() {
+        clearTimeout(t);
+        dt = new Date();
+        var y = dt.getFullYear();
+        var mt = dt.getMonth() + 1;
+        var day = dt.getDate();
+        var h = dt.getHours();
+        var m = dt.getMinutes();
+        var s = dt.getSeconds();
+        document.querySelector(".showTime").innerHTML =
+          "当前时间：" +
+          y +
+          "年" +
+          mt +
+          "月" +
+          day +
+          "-" +
+          h +
+          "时" +
+          m +
+          "分" +
+          s +
+          "秒";
+        t = setTimeout(time, 1000);
+      }
+    </script>
+  </header>
+
+  <main>
+    <div id="report-container">
+      <h2>交通场景图片检测</h2>
+      <p>上传图片后自动分析车辆数量、置信度及主要车型</p>
+
+      <div class="filters">
+        <div class="upload-row">
+          <label>选择图片：</label>
+          <input type="file" id="fileInput" accept="image/*" />
+          <button id="uploadBtn">上传并分析</button>
+        </div>
+        <img id="previewImage" src="" alt="图片预览" />
+      </div>
+
+      <table id="report-table">
+        <thead>
+          <tr>
+            <th>检测车辆总数</th>
+            <th>平均置信度</th>
+            <th>主要车型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="totalCount">0 辆</td>
+            <td id="confidence">0%</td>
+            <td id="mainType">-</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button id="exportBtn">导出报告</button>
+        <button id="saveBtn">保存结果</button>
+        <button id="shareBtn">分享分析</button>
+      </div>
+
+      <div class="help-support">
+        <div id="operation-feedback" style="color: #1890ff; font-size: 0.22rem; margin-top: 0.2rem; min-height: 0.3rem;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 独立的Toast容器（移出help-support，避免层级问题） -->
+  <div id="statusToast" style="opacity: 0;">操作提示</div>
+
+  <script>
+    // 修复Toast提示函数（确保显示）
+    function showToast(message, duration = 2000) {
+        // 1. Toast提示（页面中央醒目显示）
+        const toast = document.getElementById('statusToast');
+        if (toast) {
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, duration);
+        }
+
+        // 2. 兜底反馈（页面底部文字显示，双重保障）
+        const feedback = document.getElementById('operation-feedback');
+        if (feedback) {
+            feedback.textContent = `【操作反馈】${message}`;
+            setTimeout(() => {
+                feedback.textContent = '';
+            }, duration + 500);
+        }
+
+        // 3. 控制台日志（调试用）
+        console.log('操作反馈：', message);
+    }
+
+    // 等待页面加载完成后绑定所有事件
+    document.addEventListener('DOMContentLoaded', function() {
+        // 通用按钮绑定函数（带调试和去重）
+        function bindButtonEvent(btnId, clickHandler) {
+            const btn = document.getElementById(btnId);
+            if (!btn) {
+                console.error(`错误：未找到ID为 ${btnId} 的按钮`);
+                showToast(`按钮 ${btnId} 加载失败`, 3000);
+                return;
+            }
+            btn.removeEventListener('click', clickHandler);
+            btn.addEventListener('click', clickHandler);
+            console.log(`成功绑定 ${btnId} 按钮点击事件`);
+        }
+
+        // 上传并分析按钮
+        bindButtonEvent('uploadBtn', function() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                showToast('请先选择图片！', 2000);
+                return;
+            }
+            const file = fileInput.files[0];
+            showToast('正在分析图片...', 1500);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImg = document.getElementById('previewImage');
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+                
+                setTimeout(() => {
+                    document.getElementById('totalCount').textContent = '12 辆';
+                    document.getElementById('confidence').textContent = '89.6%';
+                    document.getElementById('mainType').textContent = '轿车/SUV';
+                    showToast('图片分析完成！', 2000);
+                }, 1500);
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // 导出报告按钮
+        bindButtonEvent('exportBtn', function() {
+            showToast('正在生成检测报告...', 1000);
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = '车辆分析报告.pdf';
+                link.href = '#';
+                link.click();
+                showToast('检测报告已导出！', 2000);
+            }, 1000);
+        });
+
+        // 保存结果按钮
+        bindButtonEvent('saveBtn', function() {
+            showToast('正在保存检测结果至云端...', 800);
+            setTimeout(() => {
+                showToast('检测结果已成功保存！', 2000);
+                console.log('保存结果操作完成');
+            }, 800);
+        });
+
+        // 分享分析按钮（兼容剪贴板）
+        bindButtonEvent('shareBtn', function() {
+            showToast('正在复制分享链接...', 800);
+            // 兼容剪贴板API（HTTPS/localhost vs HTTP）
+            if (!navigator.clipboard) {
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('分享链接已复制（兼容模式）！', 2000);
+                } catch (err) {
+                    showToast(`分享失败，请手动复制：${window.location.href}`, 3000);
+                } finally {
+                    document.body.removeChild(tempInput);
+                }
+                return;
+            }
+
+            // 原生剪贴板API
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                    showToast('分享链接已复制到剪贴板！', 2000);
+                    console.log('分享链接复制成功：', window.location.href);
+                })
+                .catch((err) => {
+                    console.error('剪贴板复制失败：', err);
+                    showToast(`分享失败，请手动复制：${window.location.href}`, 3000);
+                });
+        });
+
+        // 初始化提示（测试是否能显示）
+        setTimeout(() => {
+            showToast('页面加载完成，可正常操作', 2000);
+        }, 1000);
+    });
+  </script>
+  
+  <script src="js/monitoring.js"></script>
+  <script src="js/flexible.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/echarts.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/china.js"></script>
+  <script src="js/myMap.js"></script>
+</body>
+</html>

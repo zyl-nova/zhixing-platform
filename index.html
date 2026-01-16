@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智行</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+ 
+    <header>
+      <div class="nav">
+        <a href="index.html"class="active" ><img src="images/nav_1.png" alt="数据概览"> 数据概览</a>
+        
+      
+        <div class="dropdown">
+          <a href="monitoring.html"><img src="images/nav_5.png" alt="高危地段监控"> 高危地段监控</a>
+          <div class="dropdown-content">
+            <a href="monitoring.html">实时监控检测</a>
+            <a href="image.html">图片检测</a>
+            <a href="video.html">视频检测</a>
+          </div>
+        </div>
+        
+        <a href="download.html"><img src="images/nav_3.png" alt="报表下载"> 报表下载</a>
+      </div>
+   
+
+      
+
+
+    
+
+      <script src="js/nav.js"></script> 
+      <!-- 引入 JavaScript 文件 -->
+
+      <h1>智行车辆检测大数据平台</h1>
+      <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+      <script>
+        var t = null;
+        t = setTimeout(time, 1000); //開始运行
+        function time() {
+          clearTimeout(t); //清除定时器
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours(); //获取时
+          var m = dt.getMinutes(); //获取分
+          var s = dt.getSeconds(); //获取秒
+          document.querySelector(".showTime").innerHTML =
+            "当前时间：" +
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+          t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+      </script>
+    </header>   
+    
+    <section class="mainbox">
+      
+
+
+      <div class="column">
+       
+
+        <div class="panel bar">
+          <h2>
+            违规事件 <a href="javascript:;">2023</a>
+            <a href="javacript:;"> 2024</a>
+          </h2>
+          <div class="chart"></div>
+          <div class="download-btn" data-chart="bar">
+            <img src="images/download.png" alt="下载报表">
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+
+        <div class="panel line">
+          <h2>车型变化</h2>
+          <div class="chart"></div>
+          <div class="download-btn" data-chart="line">
+            <img src="images/download.png" alt="下载报表">
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+        
+      </div>
+
+
+      <div class="column">
+        <div class="visual_con">
+          <div class="visual_conTop">
+            <div class="visual_conTop_box visual_conTop1" style="background-image: url('images/ksh40.png');">
+              <div>
+                <h3>当前警情数(起)</h3>
+                <p>67</p>
+                <div class="conTop_smil">
+                  <a class="sz">日环比:<span>+3%</span><i class="fa fa-long-arrow-up"></i></a>
+                  <a class="xd">周环比:<span>-2%</span><i class="fa fa-long-arrow-down"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="visual_conTop_box visual_conTop2" style="background-image: url('images/ksh39.png');">
+              <div>
+                <h3>区域拥堵指数</h3>
+                <p>6.4</p>
+                <div class="conTop_smil">
+                  <a class="">缓行</a>
+                  <a class="">平均车速<span>120</span>KM/H</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="visual_conTop_box visual_conTop1" style="background-image: url('images/ksh40.png');">
+              <div>
+                <h3>交通事故数(起)</h3>
+                <p>99</p>
+                <div class="conTop_smil">
+                  <a class="sz">日环比:<span>+3%</span><i class="fa fa-long-arrow-up"></i></a>
+                  <a class="xd">周环比:<span>-2%</span><i class="fa fa-long-arrow-down"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="visual_conTop_box visual_conTop2" style="background-image: url('images/ksh39.png');">
+              <div>
+                <h3>车辆总数（辆）</h3>
+                <p>367</p>
+                <div class="conTop_smil">
+                  <a class="null">null</a>
+                  <a class="xd">月环比:<span>-2%</span><i class="fa fa-long-arrow-down"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+
+       
+        <!-- 宁波市热力图 -->
+        <!-- 地图模块开始 -->
+<!-- 地图模块 -->
+<div class="map">
+  <div class="map-container">
+    <!-- 地图画布 -->
+    <div id="map-canvas" style="width:100%;height:100%"></div>
+    
+    <!-- 信息面板1 -->
+    <div class="info-panel" id="infoPanel1">
+      <div class="info-title">实时路况详情</div>
+      <div class="info-item">
+        <span class="info-label">路径名称：</span>
+        <span class="info-value">机场路</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">拥堵指数：</span>
+        <span class="info-value">6/10</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">拥堵等级：</span>
+        <span class="info-value moderate-congestion">中度拥堵</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">实时车速：</span>
+        <span class="info-value speed-value">32km/h</span>
+      </div>
+    </div>
+
+    <!-- 信息面板2 -->
+    <div class="info-panel" id="infoPanel2">
+      <div class="info-title">实时路况详情</div>
+      <div class="info-item">
+        <span class="info-label">路径名称：</span>
+        <span class="info-value">鄞县大道</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">拥堵指数：</span>
+        <span class="info-value">7/10</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">拥堵等级：</span>
+        <span class="info-value heavy-congestion">严重拥堵</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">实时车速：</span>
+        <span class="info-value">28km/h</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* 地图容器布局 */
+  .map {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #f5f5f5;
+    padding: 20px 0;
+  }
+  
+  .map-container {
+    width: 95%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  /* 信息面板样式（保持原有功能） */
+  .info-panel {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: rgba(255,255,255,0.96);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 260px;
+    z-index: 1000;
+    display: none;
+    border: 1px solid #e8e8e8;
+  }
+  
+  .info-title {
+    color: #1677ff;
+    font-size: 16px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 6px;
+  }
+  
+  .info-item {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  
+  .info-label {
+    color: #666;
+    min-width: 80px;
+  }
+  
+  .info-value {
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* 状态颜色 */
+  .moderate-congestion { color: #fa8c16; }
+  .heavy-congestion { color: #f5222d; }
+  .speed-value { color: #52c41a; }
+</style>
+
+<script src="https://map.qq.com/api/gljs?v=1.exp&key=3PQBZ-H4OEV-3W4P5-5LVU7-2S55S-52FDE"></script>
+<script>
+  // 初始化地图（适配新布局）
+  document.addEventListener('DOMContentLoaded', function() {
+    const map = new TMap.Map('map-canvas', {
+      center: new TMap.LatLng(29.8268, 121.4619),
+      zoom: 15,
+      disableDoubleClickZoom: true
+    });
+
+    // 信息面板控制
+    const infoPanel1 = document.getElementById('infoPanel1');
+    const infoPanel2 = document.getElementById('infoPanel2');
+    let currentPanel = 1;
+
+    map.on('dblclick', () => {
+      infoPanel1.style.display = 'none';
+      infoPanel2.style.display = 'none';
+      
+      currentPanel === 1 
+        ? (infoPanel1.style.display = 'block', currentPanel = 2)
+        : (infoPanel2.style.display = 'block', currentPanel = 1);
+      
+      setTimeout(() => {
+        infoPanel1.style.display = 'none';
+        infoPanel2.style.display = 'none';
+      }, 5000);
+    });
+
+    // 添加控件
+    map.addControl(new TMap.Control.Zoom({
+      position: TMap.constants.controlPosition.TOP_RIGHT
+    }));
+    map.addControl(new TMap.Control.Scale());
+  });
+</script>
+        </div>
+      
+   
+      <div class="column">
+
+        <div class="panel bar1">
+          <h2>异常事件</h2>
+          <div class="chart"></div>
+          <div class="download-btn" data-chart="radar">
+            <img src="images/download.png" alt="下载报表">
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+     
+      
+        <div class="panel line1">
+          <h2>节假日与非节假日车流量对比</h2>
+          <div class="chart"></div>
+          <div class="download-btn" data-chart="holiday">
+            <img src="images/download.png" alt="下载报表">
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+
+      </div>
+
+
+    </section>
+    <script src="js/flexible.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/myMap.js"></script>
+  </body>
+</html>

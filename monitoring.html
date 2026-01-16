@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智行</title>
+    <link rel="stylesheet" href="css/monitoring.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/monitoring.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="nav">
+        <a href="index.html"><img src="images/nav_1.png" alt="数据概览"> 数据概览</a>
+        
+        <div class="dropdown">
+          <a href="monitoring.html"><img src="images/nav_5.png" alt="高危地段监控"> 高危地段监控</a>
+          <div class="dropdown-content">
+            <a href="monitoring.html">实时监控检测</a>
+            <a href="image.html">图片检测</a>
+            <a href="video.html">视频检测</a>
+          </div>
+        </div>
+        
+        <a href="download.html"><img src="images/nav_3.png" alt="报表下载"> 报表下载</a>
+      </div>
+
+      <script src="js/nav.js"></script>
+
+      <h1>智行车辆检测大数据平台</h1>
+      <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+      <script>
+        var t = null;
+        t = setTimeout(time, 1000);
+        function time() {
+          clearTimeout(t);
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours();
+          var m = dt.getMinutes();
+          var s = dt.getSeconds();
+          document.querySelector(".showTime").innerHTML =
+            "当前时间：" +
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+          t = setTimeout(time, 1000);
+        }
+      </script>
+    </header>
+
+<section class="mainbox">
+  <div class="column">
+    <!-- 左侧菜单 -->
+    <div id="sidebar">
+        <div id="road-list-section">
+            <h3>路口列表</h3>
+            <input type="text" id="search-box" placeholder="搜索路口">
+            <div class="road-item">机场路高架</div>
+            <div class="road-item">鄞县大道</div>
+            <div class="road-item">栎社机场T2航站楼入口</div>
+            <div class="road-item">甬金高速连接线</div>
+            <div class="road-item">机场路与鄞州大道交叉口</div>
+            <div class="road-item">栎社机场停车场入口</div>
+        </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <!-- 中间监控区域 -->
+    <div id="video-container">
+      <div id="video-header">
+        <p>地点：宁波栎社国际机场 | 时间：<span id="current-time"></span></p>
+    </div>
+
+
+    <script>
+      
+      // 新增视频区域实时时间
+      function updateCurrentTime() {
+          const now = new Date();
+          const year = now.getFullYear();
+          const month = String(now.getMonth() + 1).padStart(2, '0');
+          const day = String(now.getDate()).padStart(2, '0');
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const seconds = String(now.getSeconds()).padStart(2, '0');
+          
+          document.getElementById('current-time').textContent = 
+              `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      }
+    
+      // 初始化并设置定时器
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 1000);
+    </script>
+
+
+
+
+
+
+        
+        <div id="layout-buttons">
+            <button onclick="changeLayout(1)">1分屏</button>
+            <button onclick="changeLayout(4)">4分屏</button>
+            <button onclick="changeLayout(9)">9分屏</button>
+        </div>
+
+        <div id="video-grid">
+          <!-- 单个视频播放器 -->
+          <video controls width="100%" height="100%">
+              <source src="videos/video1.mp4" type="video/mp4">
+              您的浏览器不支持HTML5视频
+          </video>
+      </div>
+    </div>
+  </div>
+    
+  <div class="column">
+    <!-- 右侧报警区域 -->
+    <div id="alarm-content">
+        <div class="alarm-section">
+            <h3>实时报警流</h3>
+
+        <div class="message_scroll_box">
+            <div class="message_scroll_container">
+                <div class="message_scroll">
+                    <div class="scroll_top">
+                        <span class="scroll_title">超速行驶警告</span>
+                        <span class="scroll_level scroll_level01">严重</span>
+                        <a class="localize"></a>
+                        <span class="scroll_timer">17-09-13/9:52</span>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_title"><span><label>车牌</label>：浙B12345</span><span class="right"><label>速度</label>：98km/h</span></a>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_msg">机场路高架南向北方向</a>
+                    </div>
+                </div>
+                <div class="message_scroll">
+                    <div class="scroll_top">
+                        <span class="scroll_title">违规停车警告</span>
+                        <span class="scroll_level scroll_level03">一般</span>
+                        <a class="localize"></a>
+                        <span class="scroll_timer">17-09-13/9:52</span>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_title"><span><label>车牌</label>：浙B67890</span><span class="right"><label>时长</label>：15分钟</span></a>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_msg">T2航站楼出发层3号门</a>
+                    </div>
+                </div>
+                <div class="message_scroll">
+                    <div class="scroll_top">
+                        <span class="scroll_title">闯红灯警告</span>
+                        <span class="scroll_level scroll_level02">较严重</span>
+                        <a class="localize"></a>
+                        <span class="scroll_timer">17-09-13/9:52</span>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_title"><span><label>车牌</label>：浙B34567</span><span class="right"><label>路口</label>：鄞县大道</span></a>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_msg">鄞县大道与机场路交叉口</a>
+                    </div>
+                </div>
+                <div class="message_scroll">
+                    <div class="scroll_top">
+                        <span class="scroll_title">逆行行驶警告</span>
+                        <span class="scroll_level scroll_level01">严重</span>
+                        <a class="localize"></a>
+                        <span class="scroll_timer">17-09-13/9:52</span>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_title"><span><label>车牌</label>：浙B89012</span><span class="right"><label>位置</label>：停车场入口</span></a>
+                    </div>
+                    <div class="msg_cage">
+                        <a class="localize_msg">栎社机场P1停车场入口</a>
+                    </div>
+                </div>
+                <!-- 超速警告 -->
+<div class="message_scroll">
+  <div class="scroll_top">
+      <span class="scroll_title">超速行驶警告</span>
+      <span class="scroll_level scroll_level01">严重</span>
+      <a class="localize"></a>
+      <span class="scroll_timer">17-09-13/10:15</span>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_title"><span><label>车牌</label>：浙B12345</span><span class="right"><label>速度</label>：98km/h</span></a>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_msg">机场路高架南向北方向（限速80km/h）</a>
+  </div>
+</div>
+
+<!-- 违停警告 -->
+<div class="message_scroll">
+  <div class="scroll_top">
+      <span class="scroll_title">违规停车警告</span>
+      <span class="scroll_level scroll_level02">较严重</span>
+      <a class="localize"></a>
+      <span class="scroll_timer">17-09-13/10:30</span>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_title"><span><label>车牌</label>：浙B67890</span><span class="right"><label>时长</label>：25分钟</span></a>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_msg">T2航站楼出发层禁停区域</a>
+  </div>
+</div>
+
+<!-- 闯红灯警告 -->
+<div class="message_scroll">
+  <div class="scroll_top">
+      <span class="scroll_title">闯红灯警告</span>
+      <span class="scroll_level scroll_level01">严重</span>
+      <a class="localize"></a>
+      <span class="scroll_timer">17-09-13/10:45</span>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_title"><span><label>车牌</label>：浙B34567</span><span class="right"><label>路口</label>：鄞县大道</span></a>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_msg">鄞县大道与机场路交叉口（东向西方向）</a>
+  </div>
+</div>
+
+<!-- 未系安全带警告 -->
+<div class="message_scroll">
+  <div class="scroll_top">
+      <span class="scroll_title">未系安全带警告</span>
+      <span class="scroll_level scroll_level03">一般</span>
+      <a class="localize"></a>
+      <span class="scroll_timer">17-09-13/11:00</span>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_title"><span><label>车牌</label>：浙B56789</span><span class="right"><label>位置</label>：安检通道</span></a>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_msg">T1航站楼出发层安检区前</a>
+  </div>
+</div>
+
+<!-- 违规变道警告 -->
+<div class="message_scroll">
+  <div class="scroll_top">
+      <span class="scroll_title">违规变道警告</span>
+      <span class="scroll_level scroll_level02">较严重</span>
+      <a class="localize"></a>
+      <span class="scroll_timer">17-09-13/11:15</span>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_title"><span><label>车牌</label>：浙B98765</span><span class="right"><label>位置</label>：高架匝道</span></a>
+  </div>
+  <div class="msg_cage">
+      <a class="localize_msg">机场路高架南向北上匝道实线变道</a>
+  </div>
+</div>
+            </div>
+            
+        </div>
+    </div>
+  </div>
+</section>
+
+    <script src="js/monitoring.js"></script>
+    <script src="js/flexible.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/myMap.js"></script>
+  </body>
+</html>

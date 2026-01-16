@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智行</title>
+    <link rel="stylesheet" href="css/video.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/video.js"></script>
+
+  </head>
+
+  <body>
+    <header>
+      <div class="nav">
+        <a href="index.html"><img src="images/nav_1.png" alt="数据概览"> 数据概览</a>
+        
+        <div class="dropdown">
+          <a href="monitoring.html"><img src="images/nav_5.png" alt="高危地段监控"> 高危地段监控</a>
+          <div class="dropdown-content">
+            <a href="monitoring.html">实时监控检测</a>
+            <a href="image.html">图片检测</a>
+            <a href="video.html">视频检测</a>
+          </div>
+        </div>
+        
+        <a href="download.html"><img src="images/nav_3.png" alt="报表下载"> 报表下载</a>
+      </div>
+
+
+
+      <script src="js/nav.js"></script> <!-- 引入 JavaScript 文件 -->
+
+      <h1>智行车辆检测大数据平台</h1>
+      <div class="showTime">当前时间：2020年3月17-0时54分14秒</div>
+      <script>
+        var t = null;
+        t = setTimeout(time, 1000); // 开始运行
+        function time() {
+          clearTimeout(t); // 清除定时器
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours(); // 获取时
+          var m = dt.getMinutes(); // 获取分
+          var s = dt.getSeconds(); // 获取秒
+          document.querySelector(".showTime").innerHTML =
+            "当前时间：" +
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+          t = setTimeout(time, 1000); // 设定定时器，循环运行
+        }
+      </script>
+    </header>
+    
+    <div class="mainbox">
+      <!-- 左侧报警信息区 -->
+      <div class="left-panel">
+  <div class="alert-table">
+    <table>
+      <thead>
+        <tr>
+          <th>车牌</th>
+          <th>车型</th>
+          <th>首次出现</th>
+          <th>最后出现</th>
+          <th>最高速</th>
+          <th>违规</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>京A123</td>
+          <td>轿车</td>
+          <td>08:01:20</td>
+          <td>08:02:45</td>
+          <td>78km/h</td>
+          <td style="color: #ff4d4d">超速</td>
+        </tr>
+        <tr>
+          <td>沪B456</td>
+          <td>SUV</td>
+          <td>08:05:10</td>
+          <td>08:06:30</td>
+          <td>65km/h</td>
+          <td style="color: #ff4d4d">压线</td>
+        </tr>
+        <tr>
+          <td>粤C789</td>
+          <td>货车</td>
+          <td>08:03:40</td>
+          <td>08:07:15</td>
+          <td>50km/h</td>
+          <td style="color: #ff4d4d">违规占道</td>
+        </tr>
+        <tr>
+          <td>苏D012</td>
+          <td>面包车</td>
+          <td>08:08:25</td>
+          <td>08:09:50</td>
+          <td>72km/h</td>
+          <td style="color: #ff4d4d">超速</td>
+        </tr>
+        <tr>
+          <td>浙E345</td>
+          <td>客车</td>
+          <td>08:10:05</td>
+          <td>08:11:20</td>
+          <td>60km/h</td>
+          <td style="color: #ff4d4d">违停</td>
+        </tr>
+        <tr>
+          <td>鲁F678</td>
+          <td>轿车</td>
+          <td>08:12:15</td>
+          <td>08:13:40</td>
+          <td>85km/h</td>
+          <td style="color: #ff4d4d">超速</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+          <!-- 下载按钮组 -->
+          <div class="button-group">
+              <button class="download-btn" onclick="downloadAlerts()">下载报警信息</button>
+              <button class="download-btn" onclick="downloadVehicleChart()">下载车型分布</button>
+              <button class="download-btn" onclick="downloadSpeedChart()">下载速度分布</button>
+              <button class="download-btn" onclick="downloadViolationChart()">下载违规类型</button>
+          </div>
+      </div>
+  
+      <!-- 右侧视频播放区 -->
+      <div class="video-container">
+          <video id="mainVideo" controls></video>
+          <div class="video-controls">
+              <button id="playBtn">选择并播放视频</button>
+          </div>
+          <div class="loading" id="loadingText">视频加载中...</div>
+      </div>
+  </div>
+  
+    
+    <script src="js/flexible.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/myMap.js"></script>
+  </body>
+</html>
+  </body>
+</html>
